@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
-import './globals.css';
+
 import { inter } from '@/config/fonts';
+
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'OnShop | E-commerce',
