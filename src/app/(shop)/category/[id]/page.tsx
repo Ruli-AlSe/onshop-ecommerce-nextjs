@@ -1,21 +1,34 @@
 import { notFound } from 'next/navigation';
 
+import { ProductGrid, Title } from '@/components';
+import { initialData } from '@/seed/seed';
+
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default function CategoryPage({ params }: Props) {
-  const { id } = params;
+const products = initialData.products;
 
-  if (id === 'kids') {
+export default async function CategoryPage({ params }: Props) {
+  const { id } = await params;
+  const filteredProducts = products.filter((product) => product.gender === id);
+  const label = id.at(0)?.toUpperCase() + id.slice(1);
+
+  if (filteredProducts.length === 0) {
     notFound();
   }
 
   return (
-    <div>
-      <h1>Category Page</h1>
-    </div>
+    <>
+      <Title
+        title={`${label} articles`}
+        subtitle={`The best products for ${label.toLowerCase()}`}
+        className="mb-2"
+      />
+
+      <ProductGrid products={filteredProducts} />
+    </>
   );
 }
