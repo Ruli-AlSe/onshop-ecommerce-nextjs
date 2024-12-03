@@ -14,6 +14,12 @@ docker compose up -d
 
 4. Run prisma migrations `pnpm prisma migrate dev`
 
+5. Seed your development DB
+
+```bash
+pnpm seed
+```
+
 5. run the development server:
 
 ```bash
