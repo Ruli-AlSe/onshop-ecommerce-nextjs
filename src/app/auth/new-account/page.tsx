@@ -1,5 +1,6 @@
-import { titleFont } from '@/config/fonts';
 import Link from 'next/link';
+
+import { titleFont } from '@/config/fonts';
 
 export default function NewAccountPage() {
   return (
