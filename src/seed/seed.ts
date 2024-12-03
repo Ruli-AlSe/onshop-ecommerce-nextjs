@@ -15,10 +15,12 @@ export type Size = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
 export type Type = 'shirts' | 'pants' | 'hoodies' | 'hats';
 
 interface SeedData {
+  categories: string[];
   products: SeedProduct[];
 }
 
 export const initialData: SeedData = {
+  categories: ['Shirts', 'Pants', 'Hoodies', 'Hats'],
   products: [
     {
       description:
