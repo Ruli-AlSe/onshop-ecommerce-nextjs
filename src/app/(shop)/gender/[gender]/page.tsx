@@ -2,7 +2,7 @@ export const revalidate = 60;
 
 import { redirect } from 'next/navigation';
 
-import { getPaginatedProductsWithImages } from '@/actions/product/product-pagination';
+import { getPaginatedProductsWithImages } from '@/actions';
 import { Pagination, ProductGrid, Title } from '@/components';
 import { Gender } from '@prisma/client';
 
@@ -15,7 +15,24 @@ interface Props {
   }>;
 }
 
-export default async function CategoryPage({ params, searchParams }: Props) {
+const getCapitalizedGender = (gender: string) => gender.at(0)?.toUpperCase() + gender.slice(1);
+
+export async function generateMetadata({ params }: Props) {
+  const { gender } = await params;
+  const label = getCapitalizedGender(gender);
+
+  return {
+    title: label,
+    description: `${label} clothes`,
+    openGraph: {
+      title: label,
+      description: `${label} articles`,
+      images: ['/products/1657932-00-A_0_2000.jpg'],
+    },
+  };
+}
+
+export default async function GenderPage({ params, searchParams }: Props) {
   const { gender } = await params;
   const { page: searchPage } = await searchParams;
 
@@ -29,7 +46,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     redirect(`/gender/${gender}`);
   }
 
-  const label = gender.at(0)?.toUpperCase() + gender.slice(1);
+  const label = getCapitalizedGender(gender);
 
   return (
     <>
