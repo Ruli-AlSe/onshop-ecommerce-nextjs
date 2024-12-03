@@ -12,7 +12,9 @@ E-commerce created using NextJS, PostgreSQL, Prisma ORM, Tailwind, Zustand and S
 docker compose up -d
 ```
 
-4. run the development server:
+4. Run prisma migrations `pnpm prisma migrate dev`
+
+5. run the development server:
 
 ```bash
 pnpm dev
