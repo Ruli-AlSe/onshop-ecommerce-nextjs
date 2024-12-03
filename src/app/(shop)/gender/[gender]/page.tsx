@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import { redirect } from 'next/navigation';
 
 import { getPaginatedProductsWithImages } from '@/actions/product/product-pagination';
