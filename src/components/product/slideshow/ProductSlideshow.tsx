@@ -61,7 +61,7 @@ export const ProductSlideshow = ({ images, title, className }: Props) => {
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper"
+        className="mySwiper mt-5"
       >
         {images.map((image) => (
           <SwiperSlide key={image}>

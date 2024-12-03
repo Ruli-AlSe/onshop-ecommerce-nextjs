@@ -4,7 +4,7 @@ import { titleFont } from '@/config/fonts';
 
 export const Footer = () => {
   return (
-    <div className="flex w-full justify-center text-xs mb-10 mx-3">
+    <div className="flex w-full justify-center text-xs mb-10 px-3">
       <Link href="/">
         <span className={`${titleFont.className} antialiased font-bold`}>OnShop</span>
         <span> | E-commerce </span>
