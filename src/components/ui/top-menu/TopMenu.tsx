@@ -21,16 +21,13 @@ export const TopMenu = () => {
 
       {/* Center menu */}
       <div className="hidden sm:block">
-        <Link href="/category/men" className="m-2 p-2 rounded-md transition-all hover:bg-gray-100">
+        <Link href="/gender/men" className="m-2 p-2 rounded-md transition-all hover:bg-gray-100">
           Men
         </Link>
-        <Link
-          href="/category/women"
-          className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
-        >
+        <Link href="/gender/women" className="m-2 p-2 rounded-md transition-all hover:bg-gray-100">
           Women
         </Link>
-        <Link href="/category/kid" className="m-2 p-2 rounded-md transition-all hover:bg-gray-100">
+        <Link href="/gender/kid" className="m-2 p-2 rounded-md transition-all hover:bg-gray-100">
           Kids
         </Link>
       </div>
