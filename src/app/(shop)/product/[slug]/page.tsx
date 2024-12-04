@@ -3,14 +3,10 @@ export const revalidate = 10080;
 import { notFound } from 'next/navigation';
 
 import { getProductBySlug } from '@/actions';
-import {
-  ProductMobileSlideshow,
-  ProductSlideshow,
-  QuantitySelector,
-  SizeSelector,
-  StockLabel,
-} from '@/components';
+import { ProductMobileSlideshow, ProductSlideshow, StockLabel } from '@/components';
 import { titleFont } from '@/config/fonts';
+
+import { AddToCart } from './ui/AddToCart';
 
 interface Props {
   params: Promise<{
@@ -67,13 +63,7 @@ export default async function ProductPage({ params }: Props) {
         <h1 className={`${titleFont.className} antialiased font-bold text-xl`}>{product.title}</h1>
         <p className="text-lg mb-5">${product.price.toFixed(2)}</p>
 
-        {/* sizes selector */}
-        <SizeSelector sizeSelected={product.sizes[0]} availableSizes={product.sizes} />
-
-        {/* quantity selector */}
-        <QuantitySelector quantity={2} />
-
-        <button className="btn-primary my-5">Add to cart</button>
+        <AddToCart product={product} />
 
         {/* description */}
         <h3 className="font-bold text-sm">Description</h3>

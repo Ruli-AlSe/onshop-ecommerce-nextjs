@@ -3,11 +3,12 @@ import clsx from 'clsx';
 import { Size } from '@/seed/seed';
 
 interface Props {
-  sizeSelected: Size;
+  sizeSelected?: Size;
   availableSizes: Size[];
+  onSizeChanged: (size: Size) => void;
 }
 
-export const SizeSelector = ({ sizeSelected, availableSizes }: Props) => {
+export const SizeSelector = ({ sizeSelected, availableSizes, onSizeChanged }: Props) => {
   return (
     <div className="my-5">
       <h3 className="font-bold mb-4">Available sizes</h3>
@@ -16,6 +17,7 @@ export const SizeSelector = ({ sizeSelected, availableSizes }: Props) => {
         {availableSizes.map((size) => (
           <button
             key={size}
+            onClick={() => onSizeChanged(size)}
             className={clsx('mx-2 hover:underline text-lg', {
               underline: size === sizeSelected,
             })}
