@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { Title } from '@/components';
 import { initialData } from '@/seed/seed';
+import { currencyFormat } from '@/utils';
 
 const productsInCart = [initialData.products[0], initialData.products[1], initialData.products[2]];
 
@@ -36,8 +37,8 @@ export default function CheckoutPage() {
                 />
                 <div>
                   <p>{product.title}</p>
-                  <p>${product.price.toFixed(2)} x 3</p>
-                  <p className="font-bold">Subtotal: ${(product.price * 3).toFixed(2)}</p>
+                  <p>{currencyFormat(product.price)} x 3</p>
+                  <p className="font-bold">Subtotal: {currencyFormat(product.price * 3)}</p>
                 </div>
               </div>
             ))}

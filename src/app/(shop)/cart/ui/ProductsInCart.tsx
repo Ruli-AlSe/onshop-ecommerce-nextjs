@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useCartStore } from '@/store';
 import { QuantitySelector } from '@/components';
 import Link from 'next/link';
+import { currencyFormat } from '@/utils';
 
 export const ProductsInCart = () => {
   const productsInCart = useCartStore((state) => state.cart);
@@ -29,7 +30,7 @@ export const ProductsInCart = () => {
             <Link href={`/product/${product.slug}`} className="hover:underline cursor-pointer">
               {product.size} - {product.title}
             </Link>
-            <p className="my-2">${product.price.toFixed(2)}</p>
+            <p className="my-2">{currencyFormat(product.price)}</p>
             <QuantitySelector
               quantity={product.quantity}
               onQuantityChanged={(value) => updateProductQuantity(product, value)}

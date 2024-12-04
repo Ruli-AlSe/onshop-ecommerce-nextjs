@@ -7,6 +7,7 @@ import { ProductMobileSlideshow, ProductSlideshow, StockLabel } from '@/componen
 import { titleFont } from '@/config/fonts';
 
 import { AddToCart } from './ui/AddToCart';
+import { currencyFormat } from '@/utils';
 
 interface Props {
   params: Promise<{
@@ -61,7 +62,7 @@ export default async function ProductPage({ params }: Props) {
         <StockLabel slug={product.slug} />
 
         <h1 className={`${titleFont.className} antialiased font-bold text-xl`}>{product.title}</h1>
-        <p className="text-lg mb-5">${product.price.toFixed(2)}</p>
+        <p className="text-lg mb-5">{currencyFormat(product.price)}</p>
 
         <AddToCart product={product} />
 
