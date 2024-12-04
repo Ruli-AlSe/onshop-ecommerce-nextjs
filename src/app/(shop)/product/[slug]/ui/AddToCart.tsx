@@ -66,7 +66,7 @@ export const AddToCart = ({ product }: Props) => {
           />
 
           {/* quantity selector */}
-          <QuantitySelector quantity={quantity} inStock={stock} onQuantityChanged={setQuantity} />
+          <QuantitySelector quantity={quantity} onQuantityChanged={setQuantity} />
 
           <button onClick={addToCart} className="btn-primary my-5">
             Add to cart
