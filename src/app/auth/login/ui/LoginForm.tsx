@@ -1,9 +1,11 @@
 'use client';
 
-import { authenticate } from '@/actions';
-import Link from 'next/link';
 import { useActionState } from 'react';
+import Link from 'next/link';
+import clsx from 'clsx';
 import { IoAlertOutline } from 'react-icons/io5';
+
+import { authenticate } from '@/actions';
 
 export const LoginForm = () => {
   const [errorMessage, formAction, isPending] = useActionState(authenticate, undefined);
@@ -27,7 +29,14 @@ export const LoginForm = () => {
         </div>
       )}
 
-      <button className="btn-primary" aria-disabled={isPending}>
+      <button
+        type="submit"
+        className={clsx({
+          'btn-primary': !isPending,
+          'btn-disabled': isPending,
+        })}
+        disabled={isPending}
+      >
         Log in
       </button>
 
