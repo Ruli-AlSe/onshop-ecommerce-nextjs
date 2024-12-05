@@ -1,7 +1,10 @@
 import NextAuth, { type NextAuthConfig } from 'next-auth';
+import { AdapterUser } from 'next-auth/adapters';
 import Credentials from 'next-auth/providers/credentials';
 import bcryptjs from 'bcryptjs';
 import { z } from 'zod';
+
+import { IUser } from '../nextauth';
 
 import prisma from './lib/prisma';
 
@@ -9,6 +12,21 @@ export const authConfig: NextAuthConfig = {
   pages: {
     signIn: '/auth/login',
     newUser: '/auth/new-account',
+  },
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        token.data = user;
+      }
+
+      return token;
+    },
+
+    session({ session, token }) {
+      session.user = token.data as AdapterUser & IUser;
+
+      return session;
+    },
   },
   providers: [
     Credentials({
