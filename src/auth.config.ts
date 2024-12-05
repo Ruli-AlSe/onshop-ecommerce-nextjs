@@ -8,12 +8,27 @@ import { IUser } from '../nextauth';
 
 import prisma from './lib/prisma';
 
+const authenticatedRoute = ['/checkout', '/checkout/address', '/orders'];
+
 export const authConfig: NextAuthConfig = {
   pages: {
     signIn: '/auth/login',
     newUser: '/auth/new-account',
   },
   callbacks: {
+    authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+      const isOnAuthenticatedRoute = authenticatedRoute.includes(nextUrl.pathname);
+
+      if (isOnAuthenticatedRoute) {
+        if (isLoggedIn) return true;
+
+        return false;
+      }
+
+      return true;
+    },
+
     jwt({ token, user }) {
       if (user) {
         token.data = user;
