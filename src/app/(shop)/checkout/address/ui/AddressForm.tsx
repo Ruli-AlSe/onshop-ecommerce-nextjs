@@ -3,6 +3,8 @@
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 
+import { Country } from '@prisma/client';
+
 interface FormInputs {
   firstName: string;
   lastName: string;
@@ -15,7 +17,11 @@ interface FormInputs {
   rememberAddress: boolean;
 }
 
-export const AddressForm = () => {
+interface Props {
+  countries: Country[];
+}
+
+export const AddressForm = ({ countries }: Props) => {
   const {
     handleSubmit,
     register,
@@ -92,7 +98,11 @@ export const AddressForm = () => {
           {...register('country', { required: true })}
         >
           <option value="">[ Select ]</option>
-          <option value="CRI">Mexico</option>
+          {countries.map((country) => (
+            <option key={country.id} value={country.id}>
+              {country.name}
+            </option>
+          ))}
         </select>
       </div>
 
