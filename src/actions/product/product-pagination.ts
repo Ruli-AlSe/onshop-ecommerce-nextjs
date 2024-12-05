@@ -52,7 +52,8 @@ export const getPaginatedProductsWithImages = async ({
       })),
     };
   } catch (error) {
-    console.error(error);
+    console.error(JSON.stringify(error));
+
     throw new Error('Something went wrong while fetching the products');
   }
 };

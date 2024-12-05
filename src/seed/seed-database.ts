@@ -5,12 +5,17 @@ import { initialData } from './seed';
 async function main() {
   // Remove tables information
 
+  await prisma.user.deleteMany();
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
 
   // Insert categories
-  const { categories, products } = initialData;
+  const { categories, products, users } = initialData;
+
+  await prisma.user.createMany({
+    data: users,
+  });
 
   const categoriesData = categories.map((cat) => ({ name: cat }));
   await prisma.category.createMany({

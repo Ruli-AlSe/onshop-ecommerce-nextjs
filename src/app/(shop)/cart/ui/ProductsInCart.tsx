@@ -1,9 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { useCartStore } from '@/store';
-import { QuantitySelector } from '@/components';
 import Link from 'next/link';
+
+import { QuantitySelector } from '@/components';
+import { useCartStore } from '@/store';
 import { currencyFormat } from '@/utils';
 
 export const ProductsInCart = () => {
