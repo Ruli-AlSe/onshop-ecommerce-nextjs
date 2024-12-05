@@ -1,9 +1,10 @@
 'use client';
 
-import { useCartStore } from '@/store';
-import { currencyFormat } from '@/utils';
 import { useEffect, useState } from 'react';
 import { useShallow } from 'zustand/shallow';
+
+import { useCartStore } from '@/store';
+import { currencyFormat } from '@/utils';
 
 export const OrderSummary = () => {
   const [loading, setLoading] = useState(true);
