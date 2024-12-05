@@ -4,6 +4,7 @@ interface IUser extends DefaultUser {
   /**
    * Adding extrafields to the user interface
    */
+  id: string;
   role?: string;
   isActive?: boolean;
 }
