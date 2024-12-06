@@ -1,19 +1,25 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 
+import { deleteUserAddress, setUserAddress } from '@/actions';
+import { Address } from '@/interfaces';
 import { useAddressStore } from '@/store';
 import { Country } from '@prisma/client';
 
 interface FormInputs {
   firstName: string;
   lastName: string;
-  address: string;
-  address2: string;
+  street: string;
+  street2?: string;
+  colony: string;
   postalCode: string;
   city: string;
+  state: string;
   country: string;
   phone: string;
   rememberAddress: boolean;
@@ -21,18 +27,22 @@ interface FormInputs {
 
 interface Props {
   countries: Country[];
+  userStoredAddress?: Partial<Address>;
 }
 
-export const AddressForm = ({ countries }: Props) => {
+export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
   const {
     handleSubmit,
     register,
     formState: { isValid },
     reset,
-  } = useForm<FormInputs>();
-
+  } = useForm<FormInputs>({ defaultValues: { ...userStoredAddress, rememberAddress: false } });
   const setAddress = useAddressStore((state) => state.setAddress);
   const storeAddress = useAddressStore((state) => state.addressDetails);
+  const router = useRouter();
+  const { data: session } = useSession({
+    required: true,
+  });
 
   useEffect(() => {
     if (storeAddress.firstName) {
@@ -40,9 +50,17 @@ export const AddressForm = ({ countries }: Props) => {
     }
   }, [storeAddress]);
 
-  const onSubmit = (data: FormInputs) => {
-    console.log(data);
+  const onSubmit = async (data: FormInputs) => {
     setAddress(data);
+
+    const { rememberAddress, ...addressData } = data;
+    if (rememberAddress) {
+      await setUserAddress(addressData, session!.user!.id);
+    } else {
+      await deleteUserAddress(session!.user!.id);
+    }
+
+    router.push('/checkout');
   };
 
   return (
@@ -73,16 +91,21 @@ export const AddressForm = ({ countries }: Props) => {
         <input
           type="text"
           className="p-2 border rounded-md bg-gray-200"
-          {...register('address', { required: true })}
+          {...register('street', { required: true })}
         />
       </div>
 
       <div className="flex flex-col mb-2">
         <span>Address 2 (optional)</span>
+        <input type="text" className="p-2 border rounded-md bg-gray-200" {...register('street2')} />
+      </div>
+
+      <div className="flex flex-col mb-2">
+        <span>Colony</span>
         <input
           type="text"
           className="p-2 border rounded-md bg-gray-200"
-          {...register('address2')}
+          {...register('colony', { required: true })}
         />
       </div>
 
@@ -101,6 +124,15 @@ export const AddressForm = ({ countries }: Props) => {
           type="text"
           className="p-2 border rounded-md bg-gray-200"
           {...register('city', { required: true })}
+        />
+      </div>
+
+      <div className="flex flex-col mb-2">
+        <span>State</span>
+        <input
+          type="text"
+          className="p-2 border rounded-md bg-gray-200"
+          {...register('state', { required: true })}
         />
       </div>
 

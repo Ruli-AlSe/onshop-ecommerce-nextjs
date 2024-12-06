@@ -5,12 +5,14 @@ interface State {
   addressDetails: {
     firstName: string;
     lastName: string;
-    address: string;
-    address2?: string;
+    street: string;
+    street2?: string;
     postalCode: string;
     city: string;
     country: string;
     phone: string;
+    colony: string;
+    state: string;
   };
   setAddress: (address: State['addressDetails']) => void;
 }
@@ -21,12 +23,14 @@ export const useAddressStore = create<State>()(
       addressDetails: {
         firstName: '',
         lastName: '',
-        address: '',
-        address2: '',
+        street: '',
+        street2: '',
         postalCode: '',
         city: '',
         country: '',
         phone: '',
+        colony: '',
+        state: '',
       },
 
       setAddress: (address) => {
