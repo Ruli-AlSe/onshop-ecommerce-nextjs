@@ -21,7 +21,7 @@ export const AddToCart = ({ product }: Props) => {
 
   useEffect(() => {
     getStock();
-  });
+  }, []);
 
   const getStock = async () => {
     const inStock = await getStockBySlug(product.slug);
