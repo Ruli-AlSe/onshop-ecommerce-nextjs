@@ -1,7 +1,7 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 import { CartProduct } from '@/interfaces';
-import { persist } from 'zustand/middleware';
 
 interface State {
   cart: CartProduct[];
@@ -15,6 +15,7 @@ interface State {
     total: number;
     itemsInCart: number;
   };
+  clearCart: () => void;
 }
 
 export const useCartStore = create<State>()(
@@ -94,6 +95,10 @@ export const useCartStore = create<State>()(
           total,
           itemsInCart,
         };
+      },
+
+      clearCart: () => {
+        set({ cart: [] });
       },
     }),
     {
