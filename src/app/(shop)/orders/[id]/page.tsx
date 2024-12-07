@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { IoCartOutline } from 'react-icons/io5';
 
 import { getOrderById } from '@/actions';
-import { Title } from '@/components';
+import { PaypalButton, Title } from '@/components';
 import { currencyFormat } from '@/utils';
 
 interface Props {
@@ -21,7 +21,7 @@ export default async function OrderPage({ params }: Props) {
     redirect('/');
   }
   const { orderAddress, orderItems, orderTotals } = resp;
-  const { isPaid, itemsInOrder, subtotal, tax, total } = orderTotals!;
+  const { isPaid, itemsInOrder, subtotal, tax, total, id: orderId } = orderTotals!;
   const {
     street,
     street2,
@@ -126,22 +126,14 @@ export default async function OrderPage({ params }: Props) {
             </div>
 
             <div className="mt-5 mb-2 w-full">
-              <div
-                className={clsx(
-                  'flex items-center rounded-lg py-2 px-3.5 test-sx font-bold text-white mb-5',
-                  {
-                    'bg-red-500': !isPaid,
-                    'bg-green-700': isPaid,
-                  }
-                )}
-              >
-                <IoCartOutline size={30} />
-                {!isPaid ? (
-                  <span className="mx-2">Payment pending</span>
-                ) : (
+              {!isPaid ? (
+                <PaypalButton orderId={orderId} amount={total} />
+              ) : (
+                <div className="flex items-center rounded-lg py-2 px-3.5 test-sx font-bold text-white mb-5 bg-green-700">
+                  <IoCartOutline size={30} />
                   <span className="mx-2">Paid order</span>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
