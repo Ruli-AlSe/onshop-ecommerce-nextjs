@@ -4,6 +4,12 @@ import prisma from '@/lib/prisma';
 
 export const deleteUserAddress = async (userId: string) => {
   try {
+    const address = await prisma.userAddress.findFirst({
+      where: { userId },
+    });
+
+    if (!address) return { ok: true };
+
     await prisma.userAddress.delete({
       where: { userId },
     });

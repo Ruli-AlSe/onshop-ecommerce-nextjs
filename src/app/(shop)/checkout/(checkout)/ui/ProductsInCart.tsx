@@ -1,18 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 
 import { useCartStore } from '@/store';
 import { currencyFormat } from '@/utils';
 
 export const ProductsInCart = () => {
-  const router = useRouter();
   const productsInCart = useCartStore((state) => state.cart);
-
-  if (productsInCart.length === 0) {
-    router.replace('/empty');
-  }
 
   return (
     <>

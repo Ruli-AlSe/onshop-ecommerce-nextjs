@@ -45,8 +45,8 @@ export const PlaceOrder = () => {
       return;
     }
 
-    clearCart();
     router.replace(`/orders/${resp.order!.id}`);
+    clearCart();
   };
 
   return (
