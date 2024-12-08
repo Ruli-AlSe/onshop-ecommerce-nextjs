@@ -7,7 +7,7 @@ import { Title } from '@/components';
 
 import { UsersTable } from './ui/UsersTable';
 
-export default async function OrdersPage() {
+export default async function UsersPage() {
   const { ok, users = [] } = await getPaginatedUsers();
 
   if (!ok) {

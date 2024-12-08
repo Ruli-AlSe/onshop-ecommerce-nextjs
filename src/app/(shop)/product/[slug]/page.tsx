@@ -5,9 +5,9 @@ import { notFound } from 'next/navigation';
 import { getProductBySlug } from '@/actions';
 import { ProductMobileSlideshow, ProductSlideshow, StockLabel } from '@/components';
 import { titleFont } from '@/config/fonts';
+import { currencyFormat } from '@/utils';
 
 import { AddToCart } from './ui/AddToCart';
-import { currencyFormat } from '@/utils';
 
 interface Props {
   params: Promise<{
