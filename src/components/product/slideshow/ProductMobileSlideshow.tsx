@@ -11,7 +11,7 @@ import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 
 interface Props {
-  images: string[];
+  images: { url: string; id: number }[];
   title: string;
   className?: string;
 }
@@ -25,9 +25,9 @@ export const ProductMobileSlideshow = ({ images, title, className }: Props) => {
         className="mySwiper"
       >
         {images.map((image) => (
-          <SwiperSlide key={image}>
+          <SwiperSlide key={image.url}>
             <Image
-              src={`/products/${image}`}
+              src={`/products/${image.url}`}
               alt={title}
               width={600}
               height={500}
