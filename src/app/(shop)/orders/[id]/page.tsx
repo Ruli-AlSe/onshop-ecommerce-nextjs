@@ -1,10 +1,9 @@
-import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import clsx from 'clsx';
 import { IoCartOutline } from 'react-icons/io5';
 
 import { getOrderById } from '@/actions';
-import { PaypalButton, Title } from '@/components';
+import { PaypalButton, ProductImage, Title } from '@/components';
 import { currencyFormat } from '@/utils';
 
 interface Props {
@@ -63,8 +62,8 @@ export default async function OrderPage({ params }: Props) {
             {/* items */}
             {orderItems!.map((product) => (
               <div key={product.id} className="flex mb-5">
-                <Image
-                  src={`/products/${product.image}`}
+                <ProductImage
+                  src={product.image}
                   width={100}
                   height={100}
                   style={{
