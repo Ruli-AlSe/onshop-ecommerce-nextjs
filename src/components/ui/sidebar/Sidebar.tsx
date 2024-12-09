@@ -15,7 +15,7 @@ import {
 } from 'react-icons/io5';
 
 import { logout } from '@/actions';
-import { useUIStore } from '@/store';
+import { useAddressStore, useCartStore, useUIStore } from '@/store';
 
 interface Props {
   session: Session | null;
@@ -24,12 +24,16 @@ interface Props {
 export const Sidebar = ({ session }: Props) => {
   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
   const closeMenu = useUIStore((state) => state.closeSideMenu);
+  const clearCart = useCartStore((state) => state.clearCart);
+  const clearAddress = useAddressStore((state) => state.clearAddress);
 
   const isAuthenticated = !!session?.user;
   const isAdmin = session?.user?.role === 'admin';
 
   const onLogout = async () => {
     closeMenu();
+    clearAddress();
+    clearCart();
     await logout();
   };
 
@@ -122,6 +126,7 @@ export const Sidebar = ({ session }: Props) => {
 
             <Link
               href="/admin/products"
+              onClick={closeMenu}
               className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
             >
               <IoShirtOutline size={30} />
@@ -129,6 +134,7 @@ export const Sidebar = ({ session }: Props) => {
             </Link>
             <Link
               href="/admin/orders"
+              onClick={closeMenu}
               className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
             >
               <IoTicketOutline size={30} />
@@ -136,6 +142,7 @@ export const Sidebar = ({ session }: Props) => {
             </Link>
             <Link
               href="/admin/users"
+              onClick={closeMenu}
               className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
             >
               <IoPeopleOutline size={30} />

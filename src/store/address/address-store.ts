@@ -15,6 +15,7 @@ interface State {
     state: string;
   };
   setAddress: (address: State['addressDetails']) => void;
+  clearAddress: () => void;
 }
 
 export const useAddressStore = create<State>()(
@@ -35,6 +36,23 @@ export const useAddressStore = create<State>()(
 
       setAddress: (address) => {
         set({ addressDetails: address });
+      },
+
+      clearAddress: () => {
+        set({
+          addressDetails: {
+            firstName: '',
+            lastName: '',
+            street: '',
+            street2: '',
+            postalCode: '',
+            city: '',
+            country: '',
+            phone: '',
+            colony: '',
+            state: '',
+          },
+        });
       },
     }),
     {
