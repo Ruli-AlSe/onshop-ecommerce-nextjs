@@ -15,6 +15,7 @@ export const AddToCart = ({ product }: Props) => {
   const addProductToCart = useCartStore((state) => state.addProductToCart);
   const [size, setSize] = useState<Size | undefined>();
   const [quantity, setQuantity] = useState<number>(1);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [stock, setStock] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [posted, setPosted] = useState(false);
@@ -40,7 +41,7 @@ export const AddToCart = ({ product }: Props) => {
       price: product.price,
       quantity,
       size,
-      image: product.images[0].url,
+      image: typeof product.images[0] === 'string' ? product.images[0] : product.images[0].url,
     };
 
     addProductToCart(cartProduct);
